@@ -23,7 +23,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.State;
-import android.util.Log;
 import android.view.View;
 
 
@@ -61,20 +60,13 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 	}
 
 	@Override
-	public void onDraw(Canvas c, RecyclerView parent) {
-		Log.v("recyclerview - itemdecoration", "onDraw()");
-		if (mOrientation == VERTICAL_LIST) {
-			drawVertical(c, parent);
-		} else {
-			drawHorizontal(c, parent);
-		}
-	}
-
-	@Override
 	public void onDrawOver(Canvas c, RecyclerView parent, State state) {
-		super.onDrawOver(c, parent, state);
-		mDivider.setBounds(0, 0, 300, 300);
-		mDivider.draw(c);
+	    super.onDrawOver(c, parent, state);
+	    if (mOrientation == VERTICAL_LIST) {
+            drawVertical(c, parent);
+        } else {
+            drawHorizontal(c, parent);
+        }
 	}
 
 	public void drawVertical(Canvas c, RecyclerView parent) {
@@ -84,7 +76,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 		final int childCount = parent.getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			final View child = parent.getChildAt(i);
-			android.support.v7.widget.RecyclerView v = new android.support.v7.widget.RecyclerView(parent.getContext());
 			final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
 					.getLayoutParams();
 			final int top = child.getBottom() + params.bottomMargin;
