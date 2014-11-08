@@ -10,9 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnItemClickListener
-{
-    private AdapterView.OnItemClickListener mOnItemClickListener;
+public class MainActivity extends Activity implements OnItemClickListener{
     private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
