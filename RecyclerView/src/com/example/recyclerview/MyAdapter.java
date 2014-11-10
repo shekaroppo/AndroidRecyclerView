@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>{
 
     private ItemData[] itemsData;
     private AdapterView.OnItemClickListener mOnItemClickListener;
@@ -21,12 +21,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Create new views (invoked by the layout manager)
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        android.util.Log.d("createViewHolder========", "=====");
         return createViewHolder(parent);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        android.util.Log.d("onBindViewHolder========", "=====");
         bindData(viewHolder, position);
     }
     
@@ -38,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private MyAdapter.ViewHolder createViewHolder(ViewGroup parent) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.item_layout, null);
+     
         ViewHolder viewHolder = new ViewHolder(itemLayoutView, this);
         return viewHolder;
     }
@@ -64,6 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder
     implements
     View.OnClickListener {
+        
 
         public TextView txtViewTitle;
         public ImageView imgViewIcon;
@@ -79,9 +83,34 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .findViewById(R.id.item_icon);
         }
 
+        
         @Override
         public void onClick(View v) {
             mAdapter.onItemHolderClick(this);
         }
+    }
+
+    @Override
+    public long getHeaderId(int position) {
+        return itemsData[position].getTitle().charAt(0);
+    }
+
+    @Override
+    public android.support.v7.widget.RecyclerView.ViewHolder onCreateHeaderViewHolder(
+            ViewGroup parent) {
+        android.util.Log.d("onCreateHeaderViewHolder========", "=====");
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_header, parent, false);
+            return new RecyclerView.ViewHolder(view) { };
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(android.support.v7.widget.RecyclerView.ViewHolder holder,
+            int position) {
+        android.util.Log.d("onBindHeaderViewHolder========", "=====");
+        TextView textView = (TextView) holder.itemView;
+        textView.setText(String.valueOf(itemsData[position].getTitle().charAt(0)));
+
+        
     }
 }

@@ -42,6 +42,8 @@ public class MainActivity extends Activity implements OnItemClickListener{
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         MyAdapter mAdapter = new MyAdapter(itemsData);
         mAdapter.setOnItemClickListener(this);
+        StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(mAdapter);
+        recyclerView.addItemDecoration(headersDecor);
         recyclerView.setAdapter(mAdapter);
 
 
