@@ -34,6 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  imple
     
     @Override
     public int getItemCount() {
+        android.util.Log.d("getItemCount========", "=====");
         return itemsData.length;
     }
 

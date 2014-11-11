@@ -4,6 +4,8 @@
     <string name="app_name">RecyclerView</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+     <string name="nearby_games">NEARBY GAMES</string>
+      <string name="my_games">MY GAMES</string>
     
 
 </resources>

@@ -23,9 +23,9 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        android.util.Log.d("Sticky getItemOffsets========", "=====");
         int orientation = getOrientation(parent);
         int itemPosition = parent.getChildPosition(view);
+        android.util.Log.d("Sticky getItemOffsets========", "====="+itemPosition);
         if (hasNewHeader(itemPosition)) {
             View header = getHeaderView(parent, itemPosition);
             if (orientation == LinearLayoutManager.VERTICAL) {
@@ -48,28 +48,28 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
             // draw the first visible child's header at the top of the view
             int firstPosition = parent.getChildPosition(firstView);
             View firstHeader = getHeaderView(parent, firstPosition);
-            View nextView = getNextView(parent);
+            //            View nextView = getNextView(parent);
             int translationX = 0;
             int translationY = 0;
-            int nextPosition = parent.getChildPosition(nextView);
-            if (nextPosition != -1 && hasNewHeader(nextPosition)) {
-                View secondHeader = getHeaderView(parent, nextPosition);
-                //Translate the topmost header so the next header takes its place, if applicable
-                if (orientation == LinearLayoutManager.VERTICAL &&
-                        nextView.getTop() - secondHeader.getHeight() - firstHeader.getHeight() < 0) {
-                    translationY = nextView.getTop() - secondHeader.getHeight() - firstHeader.getHeight();
-                } else if (orientation == LinearLayoutManager.HORIZONTAL &&
-                        nextView.getLeft() - secondHeader.getWidth() - firstHeader.getWidth() < 0) {
-                    translationX = nextView.getLeft() - secondHeader.getWidth() - firstHeader.getWidth();
-                }
-            }
+            //            int nextPosition = parent.getChildPosition(nextView);
+            //            if (nextPosition != -1 && hasNewHeader(nextPosition)) {
+            //                View secondHeader = getHeaderView(parent, nextPosition);
+            //                //Translate the topmost header so the next header takes its place, if applicable
+            //                if (orientation == LinearLayoutManager.VERTICAL &&
+            //                        nextView.getTop() - secondHeader.getHeight() - firstHeader.getHeight() < 0) {
+            //                    translationY = nextView.getTop() - secondHeader.getHeight() - firstHeader.getHeight();
+            //                } else if (orientation == LinearLayoutManager.HORIZONTAL &&
+            //                        nextView.getLeft() - secondHeader.getWidth() - firstHeader.getWidth() < 0) {
+            //                    translationX = nextView.getLeft() - secondHeader.getWidth() - firstHeader.getWidth();
+            //                }
+            //            }
             canvas.save();
-            canvas.translate(translationX, translationY);
+            //            canvas.translate(translationX, translationY);
             firstHeader.draw(canvas);
             canvas.restore();
-            mHeaderRects.put(firstPosition, new Rect(translationX, translationY,
-                    translationX + firstHeader.getWidth(), translationY + firstHeader.getHeight()));
-
+            //            mHeaderRects.put(firstPosition, new Rect(translationX, translationY,
+            //                    translationX + firstHeader.getWidth(), translationY + firstHeader.getHeight()));
+            //
             if (parent.getChildCount() > 1)
                 for (int i = 1; i < parent.getChildCount(); i++) {
                     int position = parent.getChildPosition(parent.getChildAt(i));
@@ -87,8 +87,8 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
                         canvas.translate(translationX, translationY);
                         header.draw(canvas);
                         canvas.restore();
-                        mHeaderRects.put(position, new Rect(translationX, translationY,
-                                translationX + header.getWidth(), translationY + header.getHeight()));
+                        //                        mHeaderRects.put(position, new Rect(translationX, translationY,
+                        //                                translationX + header.getWidth(), translationY + header.getHeight()));
                     }
                 }
         }
