@@ -109,7 +109,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>  imple
     public void onBindHeaderViewHolder(android.support.v7.widget.RecyclerView.ViewHolder holder,
             int position) {
         android.util.Log.d("onBindHeaderViewHolder========", "=====");
-        TextView textView = (TextView) holder.itemView;
+        TextView textView = (TextView) holder.itemView.findViewById(R.id.header_view);
         textView.setText(String.valueOf(itemsData[position].getTitle().charAt(0)));
 
         
